@@ -15,7 +15,7 @@ const OneBox = ({setIsDarkMode, isDarkMode}) => {
     const [selected, setSelected] = useState('inbox');
     const [thread, setThread] = useState(null);
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-    
+
 
     return (
       <div className="w-[1440px] h-[760px] absolute left-10 gap-0 bg-verNavBackground">
@@ -26,7 +26,7 @@ const OneBox = ({setIsDarkMode, isDarkMode}) => {
         {selected === 'allMail' && <AllMail thread={thread} setThread={setThread} />}
         {selected === 'noMail' && <NoMails />}
         {selected != 'noMail' && <LoadingMore />}
-        {selected != 'noMail' && <HeroTopSection thread={thread} isDarkMode={isDarkMode} />}
+        {selected != 'noMail' && <HeroTopSection thread={thread} setThread={setThread} isDarkMode={isDarkMode} />}
         {selected != 'noMail' && <Messages thread={thread} setThread={setThread} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen} />}
         <div className="absolute top-[204px] left-[384px]">
           <Email thread={thread} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen}/>

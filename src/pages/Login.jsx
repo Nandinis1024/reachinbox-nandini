@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 export const Login = () => {
 
     const navigate = useNavigate();
-
+    const token = import.meta.env.VITE_TOKEN;
     const handleLogin = async () => {
         try {
-            // const response = await fetch('/https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://nextlink.vercel.app');
-            // console.log(response);
-            // const data = await response.json();
-            // console.log(data);
-
-            navigate('/onebox')
+            const response = await fetch('https://hiring.reachinbox.xyz/api/v1/onebox/reset',{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }}    
+            );
+            navigate('/onebox');
         } catch (error) {
             console.log(error);
         }   

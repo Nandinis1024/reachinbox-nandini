@@ -23,7 +23,7 @@ const AllMail = ({thread, setThread}) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [thread]);
 
 
  const dateFormater = (dateStr) => {

@@ -11,7 +11,7 @@ import { Dialog,
     DialogDescription, } from "./ui/dialog";
 import { Button } from "./ui/button";
 
-export const HeroTopSection = ({isDarkMode, thread}) => {
+export const HeroTopSection = ({isDarkMode, thread, setThread}) => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen2, setDropdownOpen2] = useState(false);
@@ -29,6 +29,9 @@ export const HeroTopSection = ({isDarkMode, thread}) => {
             })
     
             console.log(response);
+            if(response.status === 200){
+                setThread(null);
+            }
         } catch (error) {   
             console.log('Error', error);
         }   

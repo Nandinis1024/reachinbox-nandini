@@ -23,9 +23,9 @@ export const Messages = ({thread, setThread, isEmailModalOpen, setIsEmailModalOp
     };
 
     useEffect(() => {
-        if(thread != null){
-            getMails();
-        }
+      
+        getMails();
+        
     }, [thread]);
     
     const dateFormater = (dateStr) => {
@@ -73,7 +73,7 @@ export const Messages = ({thread, setThread, isEmailModalOpen, setIsEmailModalOp
                         <p className="font-sans font-custom-semibold text-[10px] leading-[13.62px] text-inboxText/40">Recent</p>
                     </div>
 
-                    {mails[0] && <div className="w-[753px] h-[236px] mt-[8px] border border-navBorder rounded-[4px] bg-navbackground">
+                    {mails && mails[0] && <div className="w-[753px] h-[236px] mt-[8px] border border-navBorder rounded-[4px] bg-navbackground">
                         <div className="w-[752px] h-[99px] rounded-t-[4px] rounded-r-[4px] py-[12px] px-[16px] flex flex-col gap-[10px]"> 
                             <div className="flex items-center justify-between">
                                 <p className="font-sans font-custom-semibold text-[14px] text-activitySubtext leading-[19.07px]">{mails[0]?.subject}</p>
