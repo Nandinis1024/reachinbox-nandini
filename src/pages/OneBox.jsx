@@ -13,9 +13,9 @@ import Email from "@/components/Email";
 
 const OneBox = ({setIsDarkMode, isDarkMode}) => {
     const [selected, setSelected] = useState('inbox');
-    const [thread, setThread] = useState({});
+    const [thread, setThread] = useState(null);
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-    const threadId = import.meta.env.VITE_THREADID;
+    
 
     return (
       <div className="w-[1440px] h-[760px] absolute left-10 gap-0 bg-verNavBackground">
@@ -26,10 +26,10 @@ const OneBox = ({setIsDarkMode, isDarkMode}) => {
         {selected === 'allMail' && <AllMail thread={thread} setThread={setThread} />}
         {selected === 'noMail' && <NoMails />}
         {selected != 'noMail' && <LoadingMore />}
-        {selected != 'noMail' && <HeroTopSection threadId={threadId} isDarkMode={isDarkMode} />}
-        {selected != 'noMail' && <Messages threadId={threadId} thread={thread} setThread={setThread} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen} />}
+        {selected != 'noMail' && <HeroTopSection thread={thread} isDarkMode={isDarkMode} />}
+        {selected != 'noMail' && <Messages thread={thread} setThread={setThread} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen} />}
         <div className="absolute top-[204px] left-[384px]">
-          <Email threadId={threadId} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen}/>
+          <Email thread={thread} isEmailModalOpen={isEmailModalOpen} setIsEmailModalOpen={setIsEmailModalOpen}/>
         </div>
       </div>
     );

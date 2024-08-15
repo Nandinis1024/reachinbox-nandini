@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 const Inbox = ({thread, setThread, isDarkMode}) => {
   const [inboxes , setInboxes] = useState([]);
+  const [selected, setSelected] = useState('');
   const token = import.meta.env.VITE_TOKEN;
   const getData = async () => {
     try{
@@ -34,10 +35,11 @@ const Inbox = ({thread, setThread, isDarkMode}) => {
     return formattedDate;
  }
 
- const handleClick = (inbox) => {
-  console.log(inbox);
-  setThread(inbox);
-  console.log(thread);
+ const handleClick = (threadId) => {
+  setThread(threadId);
+ }
+ const handleSelected = (id) => {
+  setSelected(id);
  }
 
 
@@ -111,7 +113,7 @@ const Inbox = ({thread, setThread, isDarkMode}) => {
         return(
         <div>
           
-          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox)}>
+          <div className={`w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b ${selected === inbox.id ? "border-l-[3px] border-l-[#5C7CFA]": ""} border-navBorder cursor-pointer`} onClick={()=>{handleClick(inbox.threadId); handleSelected(inbox.id)}}>
           
             <div className="w-[247px] h-[76px] pt-[4px] gap-[8px] rounded-tl-[8px]">
               

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export const Messages = ({threadId, thread, setThread, isEmailModalOpen, setIsEmailModalOpen}) => {
+export const Messages = ({thread, setThread, isEmailModalOpen, setIsEmailModalOpen}) => {
     const [mails, setMails] = useState([]);
     const [len, setLen] = useState(0);
     const [viewAll, setViewAll] = useState(false);
@@ -8,25 +8,25 @@ export const Messages = ({threadId, thread, setThread, isEmailModalOpen, setIsEm
     
     const getMails = async () => {
         try {
-            const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/messages/${threadId}`,{
+            const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/messages/${thread}`,{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 }})
             const data = await response.json();
-            console.log(data);
             setMails(data.data);
-            setLen(data.data.length);
-            setThread(data.data[0]);
+            setLen(data.data.length);     
         } catch (error) {
             console.error(error);
         }
     };
 
     useEffect(() => {
-        getMails();
-    }, []);
+        if(thread != null){
+            getMails();
+        }
+    }, [thread]);
     
     const dateFormater = (dateStr) => {
         const date = new Date(dateStr);
@@ -73,15 +73,15 @@ export const Messages = ({threadId, thread, setThread, isEmailModalOpen, setIsEm
                         <p className="font-sans font-custom-semibold text-[10px] leading-[13.62px] text-inboxText/40">Recent</p>
                     </div>
 
-                    <div className="w-[753px] h-[236px] mt-[8px] border border-navBorder rounded-[4px] bg-navbackground">
+                    {mails[0] && <div className="w-[753px] h-[236px] mt-[8px] border border-navBorder rounded-[4px] bg-navbackground">
                         <div className="w-[752px] h-[99px] rounded-t-[4px] rounded-r-[4px] py-[12px] px-[16px] flex flex-col gap-[10px]"> 
                             <div className="flex items-center justify-between">
-                                <p className="font-sans font-custom-semibold text-[14px] text-activitySubtext leading-[19.07px]">{thread?.subject}</p>
-                                <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">{dateFormater(thread?.sentAt)} : {timeFormater(thread?.sentAt)} </p>
+                                <p className="font-sans font-custom-semibold text-[14px] text-activitySubtext leading-[19.07px]">{mails[0]?.subject}</p>
+                                <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">{dateFormater(mails[0]?.sentAt)} : {timeFormater(mails[0]?.sentAt)} </p>
                             </div>
 
-                            <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">from : {thread?.fromEmail}</p>
-                        <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">to : {thread?.toEmail}</p>
+                            <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">from : {mails[0]?.fromEmail}</p>
+                        <p className="font-sf font-custom-light text-[14px] leading-[16.71px] text-inboxText/40">to : {mails[0]?.toEmail}</p>
                         </div>
                         
                         <div className="mt-[20px] ml-[20px] w-[500px] h-[114px] truncate ">
@@ -91,10 +91,10 @@ export const Messages = ({threadId, thread, setThread, isEmailModalOpen, setIsEm
                                     <br></br>
                                     <br></br>
 
-                                <div className="font-sans text-[14px] leading-[19.07px] text-navText tracking-[-0.02em]" dangerouslySetInnerHTML={{ __html: thread?.body }}></div>
+                                <div className="font-sans text-[14px] leading-[19.07px] text-navText tracking-[-0.02em]" dangerouslySetInnerHTML={{ __html: mails[0]?.body }}></div>
                             </p>
                         </div>
-                    </div>
+                    </div>}
                 </div>
 
                 <div className="relative">
@@ -102,17 +102,19 @@ export const Messages = ({threadId, thread, setThread, isEmailModalOpen, setIsEm
                         <div className="h-[1px] w-[754px] bg-[#77777733]"></div>
                     </div>
 
-                    <div className="absolute top-0 left-[42%]  h-[22px] bg-timeLineBackground p-[4px] px-[12px] rounded-[4px] flex items-center justify-between gap-[4px] cursor-pointer" onClick={handleView}>
+                    {mails && mails.length > 0 ? <div className="absolute top-0 left-[42%]  h-[22px] bg-timeLineBackground p-[4px] px-[12px] rounded-[4px] flex items-center justify-between gap-[4px] cursor-pointer" onClick={handleView}>
                         <svg width="19" height="16" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14.36 12.8H4.76001V14H14.36V12.8Z" fill="#454F5B"/>
                         <path d="M14.36 2H4.76001V3.2H14.36V2Z" fill="#454F5B"/>
                         <path d="M8.00601 8.954L7.16001 9.8L9.56001 12.2L11.96 9.8L11.114 8.954L10.16 9.902V6.098L11.114 7.046L11.96 6.2L9.56001 3.8L7.16001 6.2L8.00601 7.046L8.96001 6.098V9.902L8.00601 8.954Z" fill="#454F5B"/>
                         </svg>
-                        
                         <p className="font-sans font-custom-semibold text-[10px] leading-[13.62px] text-inboxText/40">View all <span>{len}</span> replies</p>
-                    </div>
+                    </div> : 
+                    <div className="items center flex justify-center">
+                        <p className="font-sans font-custom-semibold text-[10px] leading-[13.62px] text-inboxText/40">No Threads</p>
+                    </div> }
 
-                    {viewAll && mails.map((mail, index) => (
+                    {viewAll && mails.slice(1).map((mail, index) => (
                         <div className="w-[753px] h-[236px] mt-[8px] border border-navBorder rounded-[4px] bg-navbackground">
                         <div className="w-[752px] h-[99px] rounded-t-[4px] rounded-r-[4px] py-[12px] px-[16px] flex flex-col gap-[10px]"> 
                             <div className="flex items-center justify-between">

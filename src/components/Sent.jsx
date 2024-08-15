@@ -34,8 +34,9 @@ const Sent = ({thread, setThread}) => {
     return formattedDate;
  }
 
- const handleClick = (inbox) => {
-  setThread(inbox);
+ const handleClick = (threadId) => {
+  console.log('in all Mail', threadId);
+  setThread(threadId);
  };
 
 
@@ -109,7 +110,7 @@ const Sent = ({thread, setThread}) => {
         return(
         <div>
           
-          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox)}>
+          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox.threadId)}>
           
             <div className="w-[247px] h-[76px] pt-[4px] gap-[8px] rounded-tl-[8px]">
               

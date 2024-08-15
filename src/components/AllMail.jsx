@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 
-const AllMail = (thread, setThread) => {
+const AllMail = ({thread, setThread}) => {
   const [inboxes , setInboxes] = useState([]);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoibmFuZGluaS5zdW5pbDEwMjRAZ21haWwuY29tIiwiaWQiOjc3NywiZmlyc3ROYW1lIjoiTmFuZGluaSIsImxhc3ROYW1lIjoiU2hhcm1hIn0sImlhdCI6MTcyMzYwNzY2NSwiZXhwIjoxNzU1MTQzNjY1fQ.aEcCM7UhVostEpDjgd7ev7ZDiwdmmUMRkbu-Nr95TOY"
+  const token = import.meta.env.VITE_TOKEN
   const getData = async () => {
     try{
       const response = await fetch("https://hiring.reachinbox.xyz/api/v1/onebox/list",{
@@ -34,10 +34,10 @@ const AllMail = (thread, setThread) => {
     return formattedDate;
  }
 
- const handleClick = (inbox) => {
-    setThread(inbox);
-    console.log(thread);
-};
+ const handleClick = (threadId) => {
+  setThread(threadId);
+  console.log(threadId);
+ }
 
 
   return (
@@ -110,7 +110,7 @@ const AllMail = (thread, setThread) => {
         return(
         <div>
           
-          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox)}>
+          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox.threadId)}>
           
             <div className="w-[247px] h-[76px] pt-[4px] gap-[8px] rounded-tl-[8px]">
               

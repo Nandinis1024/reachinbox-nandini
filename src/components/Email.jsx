@@ -3,7 +3,7 @@ import "react-markdown-editor-lite/lib/index.css";
 import { Textarea } from "./ui/textarea";
 import { toast } from "react-toastify";
 
-const Email = ({threadId, isEmailModalOpen, setIsEmailModalOpen}) => {
+const Email = ({thread, isEmailModalOpen, setIsEmailModalOpen}) => {
 
     const [loading, setLoading] = useState(false);
     const [to, setTo] = useState('');
@@ -11,6 +11,8 @@ const Email = ({threadId, isEmailModalOpen, setIsEmailModalOpen}) => {
     const [subject, setSubject] = useState('');
     const [markdown, setMarkdown] = useState('');
     const token = import.meta.env.VITE_TOKEN;
+
+    console.log('thread id in email: ', thread);
 
     const handleEmailModalOpen = () => {
       setIsEmailModalOpen(false);
@@ -29,7 +31,7 @@ const Email = ({threadId, isEmailModalOpen, setIsEmailModalOpen}) => {
       try {
         console.log('Sending reply');
         setLoading(true);
-        const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/reply/${threadId}`, {
+        const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/reply/${thread}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

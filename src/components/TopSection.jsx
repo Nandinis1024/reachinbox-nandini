@@ -11,7 +11,7 @@ import { Dialog,
     DialogDescription, } from "./ui/dialog";
 import { Button } from "./ui/button";
 
-export const HeroTopSection = ({isDarkMode, threadId}) => {
+export const HeroTopSection = ({isDarkMode, thread}) => {
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropdownOpen2, setDropdownOpen2] = useState(false);
@@ -20,7 +20,7 @@ export const HeroTopSection = ({isDarkMode, threadId}) => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/messages/${threadId}`, {
+            const response = await fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/messages/${thread}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
