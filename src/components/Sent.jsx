@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
-const Sent = ({thread, setThread}) => {
+const Sent = ({thread, setThread, isDarkMode}) => {
   const [inboxes , setInboxes] = useState([]);
+  const [selected, setSelected] = useState('');
   const token = import.meta.env.VITE_TOKEN;
   const getData = async () => {
     try{
@@ -35,9 +37,16 @@ const Sent = ({thread, setThread}) => {
  }
 
  const handleClick = (threadId) => {
-  console.log('in all Mail', threadId);
   setThread(threadId);
- };
+ }
+ const handleSelected = (id) => {
+  setSelected(id);
+ }
+
+ const handleRefresh = () => {
+  const toastId = toast("Refreshing...", { duration: 300});
+  getData();
+}
 
 
   return (
@@ -47,7 +56,7 @@ const Sent = ({thread, setThread}) => {
           <div className="w-[171px] h-[64px]">
             <div className="w-[160px] h-[47px] top-[7px] left-[2px] p-[10px_0px_0px_10px] gap-[4px] flex items-center">
               <div className="w-[112px] h-[27px] text-[#4285F4] text-[20px] font-[700] leading-[27.24px] text-left font-sans">
-                All Sent(s)
+                All Inbox(s)
               </div>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M11.7998 17.3105C11.5719 17.3105 11.3646 17.2194 11.1777 17.0371L5.97559 11.7119C5.89811 11.639 5.83887 11.557 5.79785 11.4658C5.76139 11.3701 5.74316 11.2676 5.74316 11.1582C5.74316 11.0078 5.77734 10.8711 5.8457 10.748C5.91862 10.625 6.01432 10.5293 6.13281 10.4609C6.2513 10.388 6.38574 10.3516 6.53613 10.3516C6.75488 10.3516 6.94629 10.4336 7.11035 10.5977L12.1348 15.7451H11.4717L16.4893 10.5977C16.6533 10.4336 16.8447 10.3516 17.0635 10.3516C17.2139 10.3516 17.3483 10.388 17.4668 10.4609C17.5853 10.5293 17.6787 10.625 17.7471 10.748C17.82 10.8711 17.8564 11.0078 17.8564 11.1582C17.8564 11.3724 17.779 11.557 17.624 11.7119L12.4219 17.0371C12.3353 17.1283 12.2396 17.1966 12.1348 17.2422C12.0299 17.2878 11.9183 17.3105 11.7998 17.3105Z" fill="#4285F4"/>
@@ -55,14 +64,14 @@ const Sent = ({thread, setThread}) => {
             </div>
             <div className="w-[171px] h-[23px] top-[48px] p-[2px_10px_2px_10px] gap-[10px]">
               <div className="w-[151px] h-[19px] font-[700] text-[14px] leading-[19.07px]">
-                <span className="text-navText">25/25</span> <span className="font-[400] text-[14px] leading-[19.07px] text-gray-500"> Sent selected</span>
+                <span className="text-navText">25/25</span> <span className="font-[400] text-[14px] leading-[19.07px] text-gray-500"> Inboxes selected</span>
               </div>
             </div>
           </div>
-          <div className="p-[10px] text-navText " >
-            <svg className="bg-navbackground rounded-lg" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div className="p-[10px] text-navText cursor-pointer" onClick={handleRefresh}>
+            <svg className={`bg-navbackground rounded-lg ${isDarkMode ? '' : 'border border-navBorder'}`} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="0.5" width="31" height="31" rx="3.5" stroke="navBorder"/>
-            <path d="M19.7633 12.2332C18.7966 11.2665 17.4699 10.6665 15.9966 10.6665C13.0499 10.6665 10.6699 13.0532 10.6699 15.9998C10.6699 18.9465 13.0499 21.3332 15.9966 21.3332C18.4833 21.3332 20.5566 19.6332 21.1499 17.3332H19.7633C19.2166 18.8865 17.7366 19.9998 15.9966 19.9998C13.7899 19.9998 11.9966 18.2065 11.9966 15.9998C11.9966 13.7932 13.7899 11.9998 15.9966 11.9998C17.1033 11.9998 18.0899 12.4598 18.8099 13.1865L16.6633 15.3332H21.3299V10.6665L19.7633 12.2332Z" fill="#FEFEFE"/>
+            <path d="M19.7633 12.2332C18.7966 11.2665 17.4699 10.6665 15.9966 10.6665C13.0499 10.6665 10.6699 13.0532 10.6699 15.9998C10.6699 18.9465 13.0499 21.3332 15.9966 21.3332C18.4833 21.3332 20.5566 19.6332 21.1499 17.3332H19.7633C19.2166 18.8865 17.7366 19.9998 15.9966 19.9998C13.7899 19.9998 11.9966 18.2065 11.9966 15.9998C11.9966 13.7932 13.7899 11.9998 15.9966 11.9998C17.1033 11.9998 18.0899 12.4598 18.8099 13.1865L16.6633 15.3332H21.3299V10.6665L19.7633 12.2332Z" fill={isDarkMode ? `#FFFFFF` : `#000000`}/>
             </svg>
           </div>
         </div>
@@ -82,16 +91,16 @@ const Sent = ({thread, setThread}) => {
               <div className="w-[256px] h-auto min-h-[26px]  flex justify-between items-center">
                 <div className="flex items-center gap-[10px]">
                   <div className="w-[34px] h-[26px] p-[3px_8px] gap-[8px] rounded-[17px] bg-navbackground">
-                    <div className="w-[18px] h-[20px] flex items-center justify-center text-[#5C7CFA] text-[14px] font-custom-semibold leading-[20px]">
+                    <div className="w-[18px] h-[20px] flex items-center justify-center text-[#5C7CFA] text-[14px] font-semibold leading-[20px]">
                       {inboxes.length}
                     </div>
                   </div>
-                  <div className="w-[91px] h-[20px] text-inboxText text-[14px] font-custom-semibold leading-[20px] text-left">
-                    Latest Sents
+                  <div className="w-[91px] h-[20px] text-inboxText text-[14px] font-bold leading-[20px] text-left">
+                    New Replies
                   </div>
                 </div>
                 <div className="w-auto min-w-[79px] h-auto min-h-[20px] gap-[16px] flex">
-                  <div className="w-[53px] h-[20px] flex items-center justify-start gap-[25px] text-inboxText font-inter text-[14px] font-custom-semibold leading-[20px]">
+                  <div className="w-[53px] h-[20px] flex items-center justify-start gap-[25px] text-inboxText font-inter text-[14px] font-semibold leading-[20px] mt-[5px]">
                     Newest
                     <div className="w-[10px] h-[6.17px]">
                       <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +119,7 @@ const Sent = ({thread, setThread}) => {
         return(
         <div>
           
-          <div className="w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b border-navBorder cursor-pointer" onClick={()=>handleClick(inbox.threadId)}>
+          <div className={`w-[255px] h-[100px] p-[12px_8px] gap-[8px] border-b ${selected === inbox.id ? "border-l-[3px] border-l-[#5C7CFA]": ""} border-navBorder cursor-pointer`} onClick={()=>{handleClick(inbox.threadId); handleSelected(inbox.id)}}>
           
             <div className="w-[247px] h-[76px] pt-[4px] gap-[8px] rounded-tl-[8px]">
               

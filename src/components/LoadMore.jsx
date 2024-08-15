@@ -77,6 +77,7 @@ export const LoadingMore = () => {
                                 </svg>
                             </div>
                         </div>
+                        <div className="bg-[#41464B] w-[3px] h-[44px] absolute left-[16px] top-[33px]"></div>
 
                     </div>
 
@@ -113,7 +114,7 @@ export const LoadingMore = () => {
                                 </div> */}
                             </div>
                         </div>
-
+                        <div className="bg-[#41464B] w-[3px] h-[41px] absolute left-[16px] top-[109px]"></div>
                     </div>
 
 

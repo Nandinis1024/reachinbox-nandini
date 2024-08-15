@@ -22,8 +22,8 @@ const OneBox = ({setIsDarkMode, isDarkMode}) => {
         <HorizontalNavbar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />
         <VerticalNavbar setSelected={setSelected} selected={selected} isDarkMode={isDarkMode} />
         {selected === 'inbox' && <Inbox thread={thread} setThread={setThread} isDarkMode={isDarkMode} />}
-        {selected === 'sent' && <Sent thread={thread} setThread={setThread} />}
-        {selected === 'allMail' && <AllMail thread={thread} setThread={setThread} />}
+        {selected === 'sent' && <Sent thread={thread} setThread={setThread} isDarkMode={isDarkMode} />}
+        {selected === 'allMail' && <AllMail thread={thread} setThread={setThread} isDarkMode={isDarkMode} />}
         {selected === 'noMail' && <NoMails />}
         {selected != 'noMail' && <LoadingMore />}
         {selected != 'noMail' && <HeroTopSection thread={thread} setThread={setThread} isDarkMode={isDarkMode} />}
