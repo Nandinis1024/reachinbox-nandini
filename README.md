@@ -7,37 +7,40 @@ This project is a technical assignment that implements a functional web app usin
 To install and run the project on your local system, follow these steps:
 
 1. Clone the repository:
-
-   ```bash
+```
+git clone "project_url"
+```
 Navigate to the project directory:
+```
 
-bash
 
 cd reachinbox
+```
 Install the dependencies:
 
 Using npm:
-
-bash
+```
 
 npm install
+```
 Or using Yarn:
 
-bash
-
+```
 yarn
+```
 Run the development server:
 
 Using npm:
 
-bash
+```
 
 npm run dev
+```
 Or using Yarn:
-
-bash
+```
 
 yarn run dev
+```
 Project Features
 1. Login Page
 Implement the login page using the provided design.
